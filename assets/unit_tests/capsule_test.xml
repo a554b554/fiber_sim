@@ -12,6 +12,7 @@
   <liquid epsilon="1.0" rho="0.95" sigma="20.6" H="1.0" beta="0.005" type="cylinder" theta="1.0471975512" h="0.001" visc="0.0" compute="bridge" cell="0.05" dt="0.005" hairstep="1" swestep="1"/>
 
   <fluidsim ox="-3.95" oy="-1.65" oz="-4.0" width="8.0" gx="40" gy="40" gz="40" init="random" rt="0.5" correction="8">
+    <boundary type="capsule" cx="1.0" cy="5.35" cz="0.0" radius="0.4" halflength="1.5"/>
     <boundary type="capsule" cx="0.0" cy="2.35" cz="0.0" radius="0.4" halflength="1.5"/>
     <boundary type="circle" cx="0.0" cy="2.35" cz="0.0" radius="3.25" inside="1"/>
   </fluidsim>
@@ -27,8 +28,12 @@
     <accumulateViscousOnlyForBendingModes value="1"/>
   </StrandParameters>
   
-  <script target="solid" type="rotate" x="0" y="0" z="1" w="12.5663706144" start="0.0" end="1.0" i="0" updatesdf="1"/>
+
+  <script target="solid" type="translate" x="1.0" y="0" z="0" w="0.0" start="0.0" end="1.7" i="0" updatesdf="1"/>
+  <!-- <script target="solid" type="rotate" x="0" y="0" z="1" w="12.5663706144" start="0.0" end="1.0" i="0" updatesdf="1"/>
   <script target="solid" type="rotate" x="0" y="1" z="0" w="-12.5663706144" start="1.0" end="2.0" i="0" updatesdf="1"/>  
+    <script target="solid" type="rotate" x="0" y="0" z="1" w="12.5663706144" start="0.0" end="1.0" i="1" updatesdf="1"/>
+  <script target="solid" type="rotate" x="0" y="1" z="0" w="-12.5663706144" start="1.0" end="2.0" i="1" updatesdf="1"/>  
   <script target="solid" type="rotate" x="0" y="0" z="1" w="0.0" start="2.0" end="3.0" i="0" updatesdf="1"/>  
 
   <script target="solid" type="translate" x="0" y="-1" z="0" w="0.0" start="0.0" end="0.1" i="0" updatesdf="1"/>
@@ -38,5 +43,5 @@
   <script target="solid" type="translate" x="0" y="0" z="0" w="0.0" start="0.4" end="0.5" i="0" updatesdf="1"/> 
 
   <script target="solid" type="translate" x="0" y="-1" z="0" w="0.0" start="0.5" end="0.6" i="0" updatesdf="1"/>
-  <script target="solid" type="translate" x="0" y="0" z="0" w="0.0" start="0.6" end="0.7" i="0" updatesdf="1"/> 
+  <script target="solid" type="translate" x="0" y="0" z="0" w="0.0" start="0.6" end="0.7" i="0" updatesdf="1"/>  -->
 </scene>

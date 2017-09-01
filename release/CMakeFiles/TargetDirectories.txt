@@ -1,0 +1,13 @@
+/Users/changxiao/Documents/libWetHair/release/CMakeFiles/install/local.dir
+/Users/changxiao/Documents/libWetHair/release/CMakeFiles/install/strip.dir
+/Users/changxiao/Documents/libWetHair/release/CMakeFiles/install.dir
+/Users/changxiao/Documents/libWetHair/release/CMakeFiles/list_install_components.dir
+/Users/changxiao/Documents/libWetHair/release/CMakeFiles/rebuild_cache.dir
+/Users/changxiao/Documents/libWetHair/release/CMakeFiles/edit_cache.dir
+/Users/changxiao/Documents/libWetHair/release/libWetHair/CMakeFiles/install/local.dir
+/Users/changxiao/Documents/libWetHair/release/libWetHair/CMakeFiles/install/strip.dir
+/Users/changxiao/Documents/libWetHair/release/libWetHair/CMakeFiles/install.dir
+/Users/changxiao/Documents/libWetHair/release/libWetHair/CMakeFiles/list_install_components.dir
+/Users/changxiao/Documents/libWetHair/release/libWetHair/CMakeFiles/rebuild_cache.dir
+/Users/changxiao/Documents/libWetHair/release/libWetHair/CMakeFiles/edit_cache.dir
+/Users/changxiao/Documents/libWetHair/release/libWetHair/CMakeFiles/libWetHair.dir
