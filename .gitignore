@@ -9,3 +9,5 @@ unit_tests/*
 log*.*
 .DS_Store
 *.off
+release
+release2

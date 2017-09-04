@@ -29,7 +29,7 @@ def downsample_hairs(hairs, downscale):
 def write_head(f):
     f.write('<scene dim="3">\n')
     f.write('<simtype type="DiscreteElasticRods"/>\n')
-    f.write('<camera dist="30" radius="2.58263" fov="40">\n')
+    f.write('<camera dist="30" radius="2.58263" fov="60">\n')
     f.write('<rotation x="0.785" y="0" z="0" w="1"/>\n')
     f.write('<center x="0" y="0" z="0"/>\n')
     f.write('</camera>\n')
@@ -38,7 +38,16 @@ def write_head(f):
     f.write('<integrator type="preconditioned-compliant-euler" maxnewton="0" criterion="1e-7"/>\n')
     f.write('<liquid epsilon="1.0" rho="0.95" sigma="20.6" H="1.0" beta="0.0" type="cylinder" theta="1.0471975512" h="0.001" viscosity="0.0" compute="bridge" cell="0.05" collisionstiffnessplanar="15000.0" drippingmiddle="0" drippingnear="0" dt="0.001" hairstep="1" swestep="1" gravityy="0.0"/>\n')
     # f.write('<liquid rho="1.0" sigma="67.0" type="cylinder" theta="1.0471975512" viscosity="7.4e-3" maxetaprop="6.0" collisionstiffness="10000.0" dampingmultiplier="0.00" radiusmultiplier="1.6" radiusmultiplierplanar="1.1" collisionstiffnessplanar="10000.0" massupdate="none" regularizershell="0.4" heightsmooth="1.0" capillaryaccel="0.0" dragradiusmultiplier="14.4" drippingmiddle="0" frictionmultiplierplanar="0.0" dt="0.003" hairstep="4" swestep="3" gravityy="0.0"/>\n')
-    f.write('<fluidsim ox="-8.0" oy="-4.0" oz="-0.5" width="12.0" gx="80" gy="160" gz="80" init="none" rt="0.4" drawgrid="0">\n')
+    # f.write('<fluidsim ox="-8.0" oy="-4.0" oz="-0.5" width="12.0" gx="100" gy="100" gz="100" init="none" rt="0.4" drawgrid="0">\n')
+    width = 50
+    gx = 100
+    gy = 100
+    gz = 10
+    ox = width / 2
+    oy = 0
+    oz = width / 2.0 / (float(gx)/gz)
+    f.write('<fluidsim ox="'+str(ox)+'" oy="'+str(oy)'+" oz="-0.75" width="12.0" gx="96" gy="96" gz="10" init="none" rt="0.5" drawgrid="0" lsv="0.5">\n')
+        # <boundary type="capsule" cx="3.0" cy="-3.0" cz="0.0" rx="0" ry="1" rz="0" rw="1.57079632679" radius="0.5" halflength="0.5" inside="0"/>
     # f.write('<boundary type="box" cx="-3.07591434664" cy="3.07591434664" cz="0.0" ex="2.0" ey="0.2" ez="0.2" rx="0.0" ry="0.0" rz="1.0" rw="-0.78539816339"/>\n')
     write_cylinder(f)
     f.write('</fluidsim>\n')
@@ -64,19 +73,19 @@ def write_head(f):
     f.write('<baseRotation value="0.0"/>\n')
     f.write('<accumulateWithViscous value="1"/>\n')
     f.write('<accumulateViscousOnlyForBendingModes value="0"/>\n')
-    f.write('</StrandParameters>\n')  
+    f.write('</StrandParameters>\n')
     return
 
 cylinder_idx=[]
 
 def write_cylinder(f):
     #todo
-    space = 12.5
+    space = 1.1
     for i in range(2):
-        f.write('<boundary type="capsule" cx="0.0" cy="2.6" cz="'+str(i*space)+'" radius="2.5" halflength="10.5"/>\n')
-        f.write('<boundary type="capsule" cx="0.0" cy="2.6" cz="'+str(-i*space)+'" radius="2.5" halflength="10.5"/>\n')
-        f.write('<boundary type="capsule" cx="0.0" cy="-2.6" cz="'+str(i*space+space/2)+'" radius="2.5" halflength="10.5"/>\n')
-        f.write('<boundary type="capsule" cx="0.0" cy="-2.6" cz="'+str(-i*space-space/2)+'" radius="2.5" halflength="10.5"/>\n')
+        f.write('<boundary type="capsule" cx="0.0" cy="0.6" cz="'+str(i*space)+'" radius="0.5" halflength="10.5"/>\n')
+        f.write('<boundary type="capsule" cx="0.0" cy="0.6" cz="'+str(-i*space)+'" radius="0.5" halflength="10.5"/>\n')
+        f.write('<boundary type="capsule" cx="0.0" cy="-0.6" cz="'+str(i*space+space/2)+'" radius="0.5" halflength="10.5"/>\n')
+        f.write('<boundary type="capsule" cx="0.0" cy="-0.6" cz="'+str(-i*space-space/2)+'" radius="0.5" halflength="10.5"/>\n')
 
         cylinder_idx.append(4*i)
         cylinder_idx.append(4*i+1)
@@ -94,8 +103,7 @@ def write_hairs(f, hairs):
 def write_single_hair(f, hair):
     f.write('<StrandMaterialForces params="0" flow="shallow">\n')
     for i in range(hair.shape[0]):
-        # if i<2 or i>hair.shape[0]-3:
-        if i < 2:
+        if i<2 or i>hair.shape[0]-3:
             datastr = '<particle x="'+str(hair[i][0])+' '+str(hair[i][1])+' '+str(hair[i][2])+'" v="0.0 0.0 0.0" eta="0" fixed="1"/>\n'
         else:
             datastr = '<particle x="'+str(hair[i][0])+' '+str(hair[i][1])+' '+str(hair[i][2])+'" v="0.0 0.0 0.0" eta="0" fixed="0"/>\n'
@@ -109,9 +117,9 @@ def write_end(f):
 def write_script(f):
     for idx in cylinder_idx:
         if idx%4==0 or idx%4==1:
-            f.write('<script target="solid" type="translate" x="0.0" y="0" z="0" w="0.0" start="0.0" end="2.0" i="'+str(idx)+'" updatesdf="1"/>\n')
+            f.write('<script target="solid" type="translate" x="0.0" y="-3.3" z="0" w="0.0" start="0.0" end="1.0" i="'+str(idx)+'" updatesdf="1"/>\n')
         else:
-            f.write('<script target="solid" type="translate" x="0.0" y="1.3" z="0" w="0.0" start="0.0" end="1.0" i="'+str(idx)+'" updatesdf="1"/>\n')
+            f.write('<script target="solid" type="translate" x="0.0" y="3.3" z="0" w="0.0" start="0.0" end="1.0" i="'+str(idx)+'" updatesdf="1"/>\n')
         # <script target="solid" type="translate" x="1.0" y="0" z="0" w="0.0" start="0.0" end="1.7" i="0" updatesdf="1"/>
     return
 
@@ -121,12 +129,12 @@ if __name__ == '__main__':
     print(len(hairs))
     nphair = np.array(hairs)
     nphair = rescale_hairs(nphair)
-    nphair = downsample_hairs(nphair, downscale=10)
+    nphair = downsample_hairs(nphair, downscale=5)
 
-    output_file = '../assets/test.xml'
+    output_file = '../assets/testcase.xml'
     f = open(output_file, 'w+')
     write_head(f)
     write_script(f)
 
-    write_hairs(f, nphair)
+    write_hairs(f, nphair[1:4,:,:])
     write_end(f)
